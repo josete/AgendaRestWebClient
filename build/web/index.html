@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Menu</title>            
+    </head>
+    <body>
+        <form action='http://localhost:8080/AgendaRest/webresources/persona' method='POST'>
+            Nombre:<br>
+            <input type='text' name='nombre'>
+            <br>
+            Telefono:<br>
+            <input type='text' name='telefono'>
+            <br>
+            Email:<br>
+            <input type='email' name='email'>
+            <br>
+            <br>
+            <input type='submit' value='Crear Persona'>
+        </form>
+        <hr>
+        <form action='/AgendaRestWebClient/VerPersona' method='POST'>
+            Nombre:<br>
+            <input type='text' name='nombre'>
+            <input type='submit' value='Ver persona'>
+        </form>
+        <hr>
+        <form action='/AgendaRestWebClient/VerAgenda' method='POST'>
+            <input type='submit' value='Ver agenda'>
+        </form>
+        <hr>
+        <form action='/AgendaRestWebClient/ComprobarAgenda' enctype='multipart/form-data' method='POST'> 
+            Agenda:<br>
+            <input type='file' name='archivo' accept='.xml'>
+            <input type='submit' value='Validar agenda'>
+        </form>
+        <hr>
+        <form action='/AgendaRestWebClient/ComprobarPersona' enctype='multipart/form-data' method='POST'> 
+            Persona:<br>
+            <input type='file' name='archivo' accept='.xml'>
+            <input type='submit' value='Validar persona'>
+        </form>
+    </body>
+</html>
