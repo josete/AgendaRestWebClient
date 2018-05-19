@@ -6,6 +6,7 @@
 package servlets;
 
 import Objetos.AgendaObjeto;
+import Objetos.ListaAgendas;
 import Objetos.PersonaObjeto;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,9 +18,9 @@ import servicios.AgendaService;
 
 /**
  *
- * @author Familia
+ * @author Portatil
  */
-public class VerAgenda extends HttpServlet {
+public class VerAgendas extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,11 +32,9 @@ public class VerAgenda extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     AgendaService agendaSesrvice = new AgendaService();
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        AgendaObjeto a = agendaSesrvice.getAgenda(AgendaObjeto.class,request.getSession().getAttribute("idAgenda").toString(),request.getSession().getAttribute("token").toString());
+        ListaAgendas a = agendaSesrvice.getXml(ListaAgendas.class, request.getSession().getAttribute("token").toString());
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -45,11 +44,17 @@ public class VerAgenda extends HttpServlet {
             out.println("<title>Ver agenda</title>");
             out.println("</head>");
             out.println("<body>");
-            for (PersonaObjeto p : a.getPersonas()) {
-                out.println("<h3>Nombre: " + p.getNombre()+ "</h3>");
-                out.println("<h3>Telefono: " + p.getTelefono()+ "</h3>");
-                out.println("<h3>Email: " + p.getEmail() + "</h3>");
-                out.println("<h3>-----------------------------</h3>");
+            if (a.getAgendas() != null) {
+                int i = 1;
+                for (String p : a.getAgendas()) {
+                    out.println("<h3>" + i + ". " + p + "</h3>");
+                    i++;
+                }
+                out.println("<h3>Selecciona una agenda</h3>");
+                out.println("<form method='POST' action='/AgendaRestWebClient/SeleccionarAgenda'><input type='text' name='nAgenda'><input type='submit' value='Seleccionar agenda'></form>");
+            } else {
+                out.println("<h3>No hay ninguna agenda</h3>");
+                out.println("<form method='POST' action='/AgendaRestWebClient/CrearAgendaServlet'><input type='submit' value='Crear agenda'></form>");
             }
             out.println("</body>");
             out.println("</html>");

@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import Objetos.AgendaObjeto;
 import Objetos.PersonaObjeto;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -30,27 +31,28 @@ public class VerPersona extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     static PersonaService personaService = new PersonaService();
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
+
         String nombre = request.getParameter("nombre");
-        
-        PersonaObjeto p = personaService.getXml(PersonaObjeto.class, nombre);
-        
+
+        AgendaObjeto a = personaService.getXml(AgendaObjeto.class, String.valueOf(request.getSession().getAttribute("idAgenda")
+        ), nombre, request.getSession().getAttribute("token").toString());
+
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<head>");
-            out.println("<title>Menu</title>");            
+            out.println("<title>Menu</title>");
             out.println("</head>");
             out.println("<body>");
-            if(p!=null){
-            out.println("<h3>Nombre: "+p.getNombre()+"</h3>");
-            out.println("<h3>Telefono: "+p.getTelefono()+"</h3>");
-            out.println("<h3>Email: "+p.getEmail()+"</h3>");
-            }else{
+            if (a.getPersonas() != null && a.getPersonas().size()>0) {
+                for (PersonaObjeto p : a.getPersonas()) {
+                    out.println("<h3>Nombre: " + p.getNombre() + "</h3>");
+                    out.println("<h3>Telefono: " + p.getTelefono() + "</h3>");
+                    out.println("<h3>Email: " + p.getEmail() + "</h3>");
+                }
+            } else {
                 out.println("<h3>No existe ningun contacto con ese nombre</h3>");
             }
             out.println("</body>");

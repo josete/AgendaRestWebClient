@@ -11,7 +11,7 @@ import javax.ws.rs.client.WebTarget;
 
 /**
  * Jersey REST client generated for REST resource:ValidarAgenda
- * [validarAgenda]<br>
+ * [agenda/validar]<br>
  * USAGE:
  * <pre>
  *        ValidarAgendaService client = new ValidarAgendaService();
@@ -30,7 +30,7 @@ public class ValidarAgendaService {
 
     public ValidarAgendaService() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
-        webTarget = client.target(BASE_URI).path("validarAgenda");
+        webTarget = client.target(BASE_URI).path("agenda/validar");
     }
 
     public String putXml(Object requestEntity) throws ClientErrorException {

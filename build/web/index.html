@@ -4,38 +4,52 @@
         <title>Menu</title>            
     </head>
     <body>
-        <form action='http://localhost:8080/AgendaRest/webresources/persona' method='POST'>
-            Nombre:<br>
-            <input type='text' name='nombre'>
-            <br>
-            Telefono:<br>
-            <input type='text' name='telefono'>
-            <br>
+        <h5>Registro</h5>
+        <form action='/AgendaRestWebClient/Registro' method='POST'>
             Email:<br>
             <input type='email' name='email'>
             <br>
+            Contraseña:<br>
+            <input type='password' name='password'>
             <br>
-            <input type='submit' value='Crear Persona'>
+            <br>
+            <input type='submit' value='Registrarse'>
         </form>
         <hr>
-        <form action='/AgendaRestWebClient/VerPersona' method='POST'>
-            Nombre:<br>
-            <input type='text' name='nombre'>
-            <input type='submit' value='Ver persona'>
+        <h5>Login</h5>
+        <form action='/AgendaRestWebClient/Login' method='POST'>
+            Email:<br>
+            <input type='email' name='email'>
+            <br>
+            Contraseña:<br>
+            <input type='password' name='password'>
+            <br>
+            <br>
+            <input type='submit' value='Login'>
         </form>
         <hr>
-        <form action='/AgendaRestWebClient/VerAgenda' method='POST'>
+        <form action='/AgendaRestWebClient/VerAgendas' method='GET'>
+            <input type='submit' value='Ver agendas'>
+        </form>
+        <hr>
+        <form action='/AgendaRestWebClient/VerAgenda' method='GET'>
             <input type='submit' value='Ver agenda'>
         </form>
         <hr>
+        <form action='/AgendaRestWebClient/VerPersona' method='GET'>
+            Ver persona:<br>
+            <input type="text" name="nombre">
+            <input type='submit' value='Ver persona'>
+        </form>
+        <hr>
         <form action='/AgendaRestWebClient/ComprobarAgenda' enctype='multipart/form-data' method='POST'> 
-            Agenda:<br>
+            Validar Agenda:<br>
             <input type='file' name='archivo' accept='.xml'>
             <input type='submit' value='Validar agenda'>
         </form>
         <hr>
         <form action='/AgendaRestWebClient/ComprobarPersona' enctype='multipart/form-data' method='POST'> 
-            Persona:<br>
+            Validar Persona:<br>
             <input type='file' name='archivo' accept='.xml'>
             <input type='submit' value='Validar persona'>
         </form>

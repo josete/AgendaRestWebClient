@@ -5,8 +5,6 @@
  */
 package servlets;
 
-import Objetos.AgendaObjeto;
-import Objetos.PersonaObjeto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,9 +15,9 @@ import servicios.AgendaService;
 
 /**
  *
- * @author Familia
+ * @author Portatil
  */
-public class VerAgenda extends HttpServlet {
+public class CrearAgendaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,26 +29,19 @@ public class VerAgenda extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     AgendaService agendaSesrvice = new AgendaService();
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        AgendaObjeto a = agendaSesrvice.getAgenda(AgendaObjeto.class,request.getSession().getAttribute("idAgenda").toString(),request.getSession().getAttribute("token").toString());
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Ver agenda</title>");
+            out.println("<title>Servlet CrearAgendaServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            for (PersonaObjeto p : a.getPersonas()) {
-                out.println("<h3>Nombre: " + p.getNombre()+ "</h3>");
-                out.println("<h3>Telefono: " + p.getTelefono()+ "</h3>");
-                out.println("<h3>Email: " + p.getEmail() + "</h3>");
-                out.println("<h3>-----------------------------</h3>");
-            }
+            agendaSesrvice.postXml(request.getSession().getAttribute("token").toString());
+            out.println("<h1>Servlet CrearAgendaServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

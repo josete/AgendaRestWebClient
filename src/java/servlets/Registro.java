@@ -5,21 +5,19 @@
  */
 package servlets;
 
-import Objetos.AgendaObjeto;
-import Objetos.PersonaObjeto;
+import Objetos.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import servicios.AgendaService;
+import servicios.RegistoService;
 
 /**
  *
- * @author Familia
+ * @author Portatil
  */
-public class VerAgenda extends HttpServlet {
+public class Registro extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,30 +28,15 @@ public class VerAgenda extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    AgendaService agendaSesrvice = new AgendaService();
-    
+    RegistoService registroService = new RegistoService();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        AgendaObjeto a = agendaSesrvice.getAgenda(AgendaObjeto.class,request.getSession().getAttribute("idAgenda").toString(),request.getSession().getAttribute("token").toString());
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Ver agenda</title>");
-            out.println("</head>");
-            out.println("<body>");
-            for (PersonaObjeto p : a.getPersonas()) {
-                out.println("<h3>Nombre: " + p.getNombre()+ "</h3>");
-                out.println("<h3>Telefono: " + p.getTelefono()+ "</h3>");
-                out.println("<h3>Email: " + p.getEmail() + "</h3>");
-                out.println("<h3>-----------------------------</h3>");
-            }
-            out.println("</body>");
-            out.println("</html>");
-        }
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        registroService.putXml(new Usuario(email, password));
+        response.sendRedirect("/AgendaRestWebClient");
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

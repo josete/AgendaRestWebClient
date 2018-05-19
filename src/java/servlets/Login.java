@@ -5,21 +5,20 @@
  */
 package servlets;
 
-import Objetos.AgendaObjeto;
-import Objetos.PersonaObjeto;
+import Objetos.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import servicios.AgendaService;
+import servicios.LoginService;
 
 /**
  *
- * @author Familia
+ * @author Portatil
  */
-public class VerAgenda extends HttpServlet {
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,29 +29,18 @@ public class VerAgenda extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    AgendaService agendaSesrvice = new AgendaService();
-    
+    LoginService loginService = new LoginService();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        AgendaObjeto a = agendaSesrvice.getAgenda(AgendaObjeto.class,request.getSession().getAttribute("idAgenda").toString(),request.getSession().getAttribute("token").toString());
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Ver agenda</title>");
-            out.println("</head>");
-            out.println("<body>");
-            for (PersonaObjeto p : a.getPersonas()) {
-                out.println("<h3>Nombre: " + p.getNombre()+ "</h3>");
-                out.println("<h3>Telefono: " + p.getTelefono()+ "</h3>");
-                out.println("<h3>Email: " + p.getEmail() + "</h3>");
-                out.println("<h3>-----------------------------</h3>");
-            }
-            out.println("</body>");
-            out.println("</html>");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String token = loginService.putXml(new Usuario(email, password));
+        if (token.length() > 0) {
+            request.getSession().setAttribute("token", token);
+            response.sendRedirect("/AgendaRestWebClient");
+        } else {
+            System.out.println("El email o la contraseña no son correctos");
         }
     }
 

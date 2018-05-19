@@ -8,6 +8,7 @@ package servicios;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.HttpHeaders;
 
 /**
  * Jersey REST client generated for REST resource:Agenda [agenda]<br>
@@ -32,9 +33,19 @@ public class AgendaService {
         webTarget = client.target(BASE_URI).path("agenda");
     }
 
-    public <T> T getXml(Class<T> responseType) throws ClientErrorException {
+    public <T> T getXml(Class<T> responseType,String token) throws ClientErrorException {
         WebTarget resource = webTarget;
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(responseType);
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).header(HttpHeaders.AUTHORIZATION, token).get(responseType);
+    }
+
+    public void postXml(String token) throws ClientErrorException {
+        webTarget.request().header(HttpHeaders.AUTHORIZATION, token).post(null);
+    }
+
+    public <T> T getAgenda(Class<T> responseType, String id, String token) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).header(HttpHeaders.AUTHORIZATION, token).get(responseType);
     }
 
     public void close() {
