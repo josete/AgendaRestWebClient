@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>Filtro</filter-name>
+        <filter-class>Filtro.Filtro</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Filtro</filter-name>
+        <servlet-name>VerPersona</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Filtro</filter-name>
+        <servlet-name>VerAgenda</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Filtro</filter-name>
+        <servlet-name>BorrarPersonaServlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Filtro</filter-name>
+        <servlet-name>CrearContanctoServlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Filtro</filter-name>
+        <servlet-name>ModificarPersonaServlet</servlet-name>
+    </filter-mapping>
     <servlet>
         <servlet-name>VerPersona</servlet-name>
         <servlet-class>servlets.VerPersona</servlet-class>
@@ -36,6 +60,30 @@
         <servlet-name>SeleccionarAgenda</servlet-name>
         <servlet-class>servlets.SeleccionarAgenda</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CrearContanctoServlet</servlet-name>
+        <servlet-class>servlets.CrearContanctoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BorrarPersonaServlet</servlet-name>
+        <servlet-class>servlets.BorrarPersonaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BorrarPersona</servlet-name>
+        <servlet-class>servlets.BorrarPersona</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificarPersonaServlet</servlet-name>
+        <servlet-class>servlets.ModificarPersonaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificarPersona</servlet-name>
+        <servlet-class>servlets.ModificarPersona</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActualizarPersona</servlet-name>
+        <servlet-class>servlets.ActualizarPersona</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>VerPersona</servlet-name>
         <url-pattern>/VerPersona</url-pattern>
@@ -71,6 +119,30 @@
     <servlet-mapping>
         <servlet-name>SeleccionarAgenda</servlet-name>
         <url-pattern>/SeleccionarAgenda</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CrearContanctoServlet</servlet-name>
+        <url-pattern>/CrearContanctoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorrarPersonaServlet</servlet-name>
+        <url-pattern>/BorrarPersonaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorrarPersona</servlet-name>
+        <url-pattern>/BorrarPersona</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarPersonaServlet</servlet-name>
+        <url-pattern>/ModificarPersonaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarPersona</servlet-name>
+        <url-pattern>/ModificarPersona</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizarPersona</servlet-name>
+        <url-pattern>/ActualizarPersona</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

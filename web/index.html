@@ -36,10 +36,32 @@
             <input type='submit' value='Ver agenda'>
         </form>
         <hr>
+        <h5>Crear Persona</h5>
+        <form action='/AgendaRestWebClient/CrearContanctoServlet' method='POST'>
+            Nombre:<br>
+            <input type='text' name='nombre'>
+            <br>
+            Email:<br>
+            <input type='email' name='email'><br>
+            Telefono:<br>
+            <input type='text' name='telefono'>
+            <br>
+            <br>
+            <input type='submit' value='Crear Contacto'>
+        </form>
+        <hr>
         <form action='/AgendaRestWebClient/VerPersona' method='GET'>
             Ver persona:<br>
             <input type="text" name="nombre">
             <input type='submit' value='Ver persona'>
+        </form>
+        <hr>
+        <form action='/AgendaRestWebClient/BorrarPersonaServlet' method='GET'>
+            <input type='submit' value='Borrar personas'>
+        </form>
+        <hr>
+        <form action='/AgendaRestWebClient/ModificarPersonaServlet' method='GET'>
+            <input type='submit' value='Modificar personas'>
         </form>
         <hr>
         <form action='/AgendaRestWebClient/ComprobarAgenda' enctype='multipart/form-data' method='POST'> 

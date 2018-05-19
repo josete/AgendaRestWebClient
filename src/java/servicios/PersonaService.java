@@ -20,7 +20,7 @@ import javax.ws.rs.core.HttpHeaders;
  *        client.close();
  * </pre>
  *
- * @author Portatil
+ * @author Familia
  */
 public class PersonaService {
 
@@ -33,15 +33,21 @@ public class PersonaService {
         webTarget = client.target(BASE_URI).path("persona");
     }
 
-    public void borrar(String idPersona) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("{0}", new Object[]{idPersona})).request().delete();
+    public void borrar(String idPersona,String token) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("{0}", new Object[]{idPersona})).request().header(HttpHeaders.AUTHORIZATION, token).delete();
     }
 
-    public void actualizar(Object requestEntity, String idPersona) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("{0}", new Object[]{idPersona})).request(javax.ws.rs.core.MediaType.APPLICATION_XML).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML));
+    public <T> T getInfo(Class<T> responseType, String idAgenda, String token) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("{0}/info", new Object[]{idAgenda}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).header(HttpHeaders.AUTHORIZATION, token).get(responseType);
     }
 
-    public <T> T getXml(Class<T> responseType, String idAgenda, String nombre, String token) throws ClientErrorException {
+    public void actualizar(Object requestEntity, String idPersona, String token) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("{0}", new Object[]{idPersona})).request(javax.ws.rs.core.MediaType.APPLICATION_XML).header(HttpHeaders.AUTHORIZATION, token).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML));
+    }
+
+    public <T> T getXml(Class<T> responseType, String idAgenda, String nombre,String token) throws ClientErrorException {
         WebTarget resource = webTarget;
         if (nombre != null) {
             resource = resource.queryParam("nombre", nombre);
@@ -50,8 +56,8 @@ public class PersonaService {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).header(HttpHeaders.AUTHORIZATION, token).get(responseType);
     }
 
-    public void putXml(Object requestEntity, String idAgenda) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("{0}", new Object[]{idAgenda})).request(javax.ws.rs.core.MediaType.APPLICATION_XML).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML));
+    public void putXml(Object requestEntity, String idAgenda, String token) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("{0}", new Object[]{idAgenda})).request(javax.ws.rs.core.MediaType.APPLICATION_XML).header(HttpHeaders.AUTHORIZATION, token).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML));
     }
 
     public void close() {
